@@ -1,0 +1,26 @@
+version: '3.9'
+
+networks: 
+  api-network:
+      name: api-network
+      driver: bridge
+
+services:
+  db:
+    container_name: db
+    image: "mcr.microsoft.com/mssql/server:2019-latest"
+    restart: always
+    environment:
+        SA_PASSWORD: 123@tt89Dev
+        ACCEPT_EULA: "Y"
+        MSSQL_PID: Developer
+    networks: 
+      - api-network
+    ports:
+        - 1433:1433
+    expose:
+      - '1433'
+    volumes:
+      - mssql:/home/dotnet/app
+volumes:
+  mssql:
